@@ -1,5 +1,7 @@
 let randomCounts = [];
 let total = 20;
+let txtSize = 10;
+let gap = 4; // Gap between elements
 
 function setup() {
   createCanvas(800, 600);
@@ -10,7 +12,7 @@ function setup() {
 
   // Set text properties
   textAlign(CENTER, BOTTOM);
-  textSize(6);
+  textSize(txtSize);
 }
 
 function draw() {
@@ -18,6 +20,17 @@ function draw() {
 
   let index = floor(random(randomCounts.length));
   randomCounts[index]++;
+
+  // Get current text size
+  let textHeight = textSize();
+  
+  // Calculate maximum bar height considering text and gaps
+  let maxBarHeight = height - (textHeight * 2 + gap * 3);
+
+  // Check if any bar has reached the maximum allowable height
+  if (randomCounts[index] >= maxBarHeight) {
+    noLoop(); // Stop the draw loop
+  }
 
   let w = width / randomCounts.length;
 
